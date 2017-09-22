@@ -24,6 +24,7 @@ def search(FileName, EditedFileName):
 	link = tree.xpath('//div[@class = "info"]/p/a/@href')[0]
 	title_array = []
 	for el in range(0, 5):
+		try:
 			# RusName - the name of the movie in Russian
 			RusName = re.sub('[^0-9а-яА-Яa-zA-Z\ \(\)\-\,\.]','',tree.xpath('//div[@class = "info"]/p/a/text()')[el])
 			# EnName - the name of the movie in English
@@ -37,7 +38,8 @@ def search(FileName, EditedFileName):
 			NewName = RusName+' ('+EngName+') ['+Duration+'] '+Year+'.'+ext
 			print ("["+str(el+1)+"] "+NewName)
 			title_array.append(NewName)
-
+		except Exception:
+			print ("")
 	answer = input("Rename (1-6). Escape (n). Edit file name (e): ")
 	if answer == "1" or answer == "2" or answer == "3" or answer == "4" or answer == "5" or answer == "6":
 		print (title_array[int(answer)-1])
